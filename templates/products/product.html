@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<style>
+    .product-detail {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .product-detail h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .product-detail .price {
+        font-size: 22px;
+        color: #2c7a7b;
+        margin-bottom: 20px;
+    }
+
+    .product-detail .category {
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: #666;
+    }
+
+    .product-detail .description {
+        margin-top: 20px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .product-detail .genres {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #444;
+    }
+
+    .product-detail .genres span {
+        background-color: #ddd;
+        padding: 4px 8px;
+        border-radius: 6px;
+        margin-right: 6px;
+        display: inline-block;
+        margin-top: 5px;
+    }
+
+    .reviews {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #ccc;
+    }
+
+    .review {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #fff;
+        border: 1px solid #eee;
+        border-radius: 8px;
+    }
+
+    .review .author {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .review .rating {
+        color: #f6ad55;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .review .comment {
+        font-size: 15px;
+        color: #333;
+    }
+
+    .no-reviews {
+        color: #777;
+        font-style: italic;
+    }
+
+    .average-rating {
+        font-size: 18px;
+        color: #f6ad55;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="product-detail">
+    <h1>{{ product.name }}</h1>
+    {% if avg_rating %}
+        <div class="average-rating">Средний рейтинг: {{ avg_rating }} / 5</div>
+    {% else %}
+        <div class="average-rating">Пока нет оценок</div>
+    {% endif %}
+    <div class="price">{{ product.price }} тг</div>
+    <div class="category">Категория: {{ product.get_category_display }}</div>
+
+    <div class="description">
+        <strong>Игра:</strong> {{ product.game.name }}<br><br>
+        {{ product.game.description }}
+    </div>
+
+    <div class="genres">
+        <strong>Жанры:</strong>
+        {% for genre in product.game.genres.all %}
+            <span>{{ genre.name }}</span>
+        {% empty %}
+            <span>Жанры не указаны</span>
+        {% endfor %}
+    </div>
+
+    <div class="reviews">
+        <h2>Отзывы</h2>
+        {% if product.reviews.all %}
+            {% for review in product.reviews.all %}
+                <div class="review">
+                    <div class="author">{{ review.user.username }}</div>
+                    <div class="rating">Оценка: {{ review.rating }} / 5</div>
+                    <div class="comment">{{ review.comment }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-reviews">Отзывов пока нет.</div>
+        {% endif %}
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="{% url 'review-create' product.id %}" class="review-button">Оставить отзыв</a>
+    </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Shop</title>
+    <style>
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 15px 30px;
+            font-family: Arial, sans-serif;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Game Shop</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/catalog">Catalog</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+
+    {% block body %}
+    {% endblock %}
+</body>
+</html>

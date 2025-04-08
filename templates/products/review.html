@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<style>
+    .review-form-container {
+        max-width: 600px;
+        margin: 60px auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .review-form-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .review-form-container form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .review-form-container label {
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    .review-form-container input,
+    .review-form-container textarea,
+    .review-form-container select {
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    .review-form-container textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .review-form-container button {
+        margin-top: 25px;
+        padding: 12px;
+        background-color: #2c7a7b;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .review-form-container button:hover {
+        background-color: #225e5f;
+    }
+</style>
+
+<div class="review-form-container">
+    <h2>Оставить отзыв</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {{ field.errors }}
+        {% endfor %}
+        <button type="submit">Отправить отзыв</button>
+    </form>
+</div>
+
+{% endblock %}
