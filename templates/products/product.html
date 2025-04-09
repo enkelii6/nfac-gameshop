@@ -116,6 +116,11 @@
         {% endfor %}
     </div>
 
+    <form method="post" action="{% url 'basket' product.id %}">
+        {% csrf_token %}
+        <button type="submit">Добавить в корзину</button>
+    </form>
+
     <div class="reviews">
         <h2>Отзывы</h2>
         {% if product.reviews.all %}
